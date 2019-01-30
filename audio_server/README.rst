@@ -7,6 +7,8 @@ A web based suite of connected audio production tools for ingame VO
      :target: https://github.com/pydanny/cookiecutter-django/
      :alt: Built with Cookiecutter Django
 
+# For detailed info on cookiecutter-django
+https://cookiecutter-django.readthedocs.io/en/latest/index.html
 
 Settings
 --------

@@ -79,7 +79,14 @@ To run a celery worker:
 
 Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
 
-
+To add celery task pipeline to a django app:
+    1 - compose/start/worker -> create a worker for the target app
+    2 - Add a tasks.py file in the app.
+    3 - Create an app celery instance in the task.py file and add tasks
+    4 - Import tasks to other app files and call:
+        -> from . import tasks
+        -> result = tasks.celerytask_func.delay()
+        -> Check status using flower in localhost:5555
 
 
 Email Server

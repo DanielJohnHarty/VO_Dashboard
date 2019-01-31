@@ -5,3 +5,4 @@ set -o nounset
 
 
 celery -A audio_server.taskapp worker -l INFO
+celery -A audio_server.repo_scanner worker -l INFO

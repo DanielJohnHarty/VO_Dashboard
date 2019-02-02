@@ -2,7 +2,7 @@ import os
 from celery import Celery
 import time
 
-app = Celery('tasks', backend=os.environ['CELERY_BROKER_URL'], broker=os.environ['CELERY_BROKER_URL'])
+app = Celery()
 
 @app.task
 def test_placeholder(num_iterations):

@@ -7,5 +7,5 @@ def scan_home(request):
     context = {}
 
     # Create an async task. Status visible @ localhost:5555
-    result = tasks.test_placeholder.delay(5)
+    result = tasks.test_placeholder.delay(5).forget()
     return render(request, template, context=context)

@@ -8,6 +8,6 @@ from . import views
 
 app_name = 'repo_scanner'
 urlpatterns = [
-    #path("", TemplateView.as_view(template_name="repo_scanner/scan_home.html"), name="home"),
-    path("", views.scan_home, name="home"),
+    path("scan", views.scan, name="scan"),
+    path("view_db", views.view_db, name="view_db"),
 ]

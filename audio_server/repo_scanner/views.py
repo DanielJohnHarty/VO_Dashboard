@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from . import tasks
+from . import models
 
 
-def scan_home(request):
+def scan(request):
     template = 'repo_scanner/scan_home.html'
-    context = {}
+    result = tasks.scan.delay()
+    return render(request, template)
 
-    # Create an async task. Status visible @ localhost:5555
-    result = tasks.test_placeholder.delay(5)
+
+def view_db(request):
+    template = 'repo_scanner/view_db.html'
+    audio_db = models.AudioAsset.objects.all()
+    context = {'audio_db':audio_db,}
     return render(request, template, context=context)

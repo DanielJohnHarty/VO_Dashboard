@@ -2,6 +2,9 @@ import os
 import time
 from . import models
 from celery import Celery
+from django.utils.timezone import now
+import lib.wav_scan as wav_scan
+
 
 app = Celery()
 
@@ -19,5 +22,32 @@ def scan(target_path='/audio_repo'):
         for f in files:
             if f.endswith('.wav'):
                 filepath = os.path.join(path, f)
-                asset = models.AudioAsset(filename=f, filepath=filepath)
-                asset.save()
+                metadata = wav_scan.get_wav_metadata(filepath)
+
+
+                same_asset = \
+                        models.AudioAsset.objects.filter(filepath=filepath, crc=metadata['crc'])
+
+                updated_asset = \
+                        models.AudioAsset.objects.filter(filepath=filepath).exclude(crc=metadata['crc'])
+
+                if same_asset:
+                    continue
+
+                elif updated_asset:
+                    asset = updated_asset[0].update(scandate=now(),                                                              crc=metadata['crc'],
+                                                    bitrate=metadata['bitrate'],
+                                                    samplerate=metadata['samplerate'],
+                                                    channels=metadata['channels'],
+                                                    length=metadata['length'],
+                                                    lufs=metadata['lufs'])
+                else:
+                    # new asset
+                    models.AudioAsset.objects.create(filename=f,
+                                                     filepath=filepath,
+                                                     crc=metadata['crc'],
+                                                     bitrate=metadata['bitrate'],
+                                                     samplerate=metadata['samplerate'],
+                                                     channels=metadata['channels'],
+                                                     length=metadata['length'],
+                                                     lufs=metadata['lufs'])

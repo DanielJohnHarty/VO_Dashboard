@@ -27,6 +27,7 @@ RUN pip install future==0.17.1
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
+
 RUN pip install -r /requirements/local.txt
 
 COPY ./compose/production/django/entrypoint /entrypoint
@@ -49,7 +50,10 @@ COPY ./compose/local/django/celery/flower/start /start-flower
 RUN sed -i 's/\r//' /start-flower
 RUN chmod +x /start-flower
 
+# Install custom libs
 COPY ./lib /app/lib
-WORKDIR /app
+WORKDIR /app/lib/pyloudnorm
+RUN python setup.py install
 
+WORKDIR /app
 ENTRYPOINT ["/entrypoint"]

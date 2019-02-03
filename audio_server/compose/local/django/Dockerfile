@@ -1,6 +1,7 @@
 FROM python:3.6-alpine
 
-ENV PYTHONUNBUFFERED 1
+RUN apk update \
+  && apk --no-cache --update-cache add gcc gfortran python-dev py-pip build-base wget freetype-dev libpng-dev openblas-dev
 
 RUN apk update \
   # psycopg2 dependencies
@@ -13,7 +14,16 @@ RUN apk update \
   # Translations dependencies
   && apk add gettext \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
-  && apk add postgresql-client
+  && apk add postgresql-client \
+  # Audio related dependences
+  && apk add libsndfile-dev
+
+RUN pip install --no-cache-dir numpy==1.16.1
+RUN pip install --no-cache-dir scipy==1.2.0
+RUN pip install --no-cache-dir pandas==0.24.0
+RUN pip install --no-cache-dir matplotlib==3.0.2
+RUN pip install pysoundfile==0.9.0.post1
+RUN pip install future==0.17.1
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements

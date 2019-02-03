@@ -2,9 +2,36 @@
 {% block content %}
 <h1>View DB</h1>
 
-{% for asset in audio_db %}
-    <h5>{{asset.filepath}}</h5>
-{% endfor %}
+<section>
 
+<table class="table-striped table-condensed table-bordered">
+  <tr>
+    <th>Filename</th>
+    <th>Filepath</th> 
+    <th>Scandate</th>
+    <th>Bitrate</th>
+    <th>Samplerate</th> 
+    <th>Lufs</th>
+    <th>CRC</th>
+    <th>Channels</th> 
+    <th>Length</th>
+  </tr>
+    {% for asset in audio_db %}
+    <tr>
+            <td>{{asset.filename}}</td>
+            <td>{{asset.filepath}}</td>
+            <td>{{asset.scandate}}</td>
+            <td>{{asset.bitrate}}</td>
+            <td>{{asset.samplerate}}</td>
+            <td>{{asset.lufs|floatformat:2}}</td>
+            <td>{{asset.crc}}</td>
+            <td>{{asset.channels}}</td>
+            <td>{{asset.length|floatformat:2}}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+
+</section>
 
 {% endblock %}

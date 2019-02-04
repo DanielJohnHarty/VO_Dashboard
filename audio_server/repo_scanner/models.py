@@ -11,3 +11,6 @@ class AudioAsset(models.Model):
     lufs = models.FloatField(null=True)
     channels = models.IntegerField(null=True)
     crc = models.CharField(null=True, max_length=100)
+
+    def __str__(self):
+        return "{}_{}".format(self.filename, self.crc)

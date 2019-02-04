@@ -23,6 +23,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
 
     path("repo_scanner/", include("repo_scanner.urls")),
+    path("api/", include("audio_api.urls")),
 
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

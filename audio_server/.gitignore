@@ -159,7 +159,8 @@ typings/
 !.vscode/extensions.json
 
 
-
+### pyloudnorm
+*custom_libs/pyloudnorm/.git*
 
 
 ### Windows template

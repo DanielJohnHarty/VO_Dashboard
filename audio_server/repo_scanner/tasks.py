@@ -3,7 +3,7 @@ import time
 from . import models
 from celery import Celery
 from django.utils.timezone import now
-import lib.wav_scan as wav_scan
+import custom_libs.wav_scan as wav_scan
 
 
 app = Celery()

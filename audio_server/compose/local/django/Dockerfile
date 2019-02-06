@@ -51,8 +51,8 @@ RUN sed -i 's/\r//' /start-flower
 RUN chmod +x /start-flower
 
 # Install custom libs
-COPY ./lib /app/lib
-WORKDIR /app/lib/pyloudnorm
+COPY ./custom_libs /app/custom_libs
+WORKDIR /app/custom_libs/pyloudnorm
 RUN python setup.py install
 
 WORKDIR /app

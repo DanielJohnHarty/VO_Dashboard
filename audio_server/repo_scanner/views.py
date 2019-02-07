@@ -12,5 +12,5 @@ def scan(request):
 def view_db(request):
     template = 'repo_scanner/view_db.html'
     audio_db = models.AudioAsset.objects.all()
-    context = {'audio_db':audio_db,}
+    context = {'count':len(audio_db), 'audio_db':audio_db,}
     return render(request, template, context=context)

@@ -58,6 +58,20 @@
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
               </li>
+              {% if request.user.is_staff %}
+              <li class="nav-item">
+                {# URL for flower tasks screen #}
+                <a class="nav-link" href="{% url 'tasks' %}">{% trans "Tasks" %}</a>
+              </li>
+              <li class="nav-item">
+                {# URL view_db #}
+                <a class="nav-link" href="{% url 'repo_scanner:view_db' %}">{% trans "View DB" %}</a>
+              </li>
+              <li class="nav-item">
+                {# URL scan_home #}
+                <a class="nav-link" href="{% url 'repo_scanner:scan' %}">{% trans "Scan" %}</a>
+              </li>
+              {% endif %}
             {% else %}
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}

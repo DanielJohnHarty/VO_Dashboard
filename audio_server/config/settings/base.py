@@ -70,6 +70,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django.contrib.humanize', # Handy template tags
+    'grappelli', # Must be before django.contrib.admin
+    'filebrowser', # Must be before django.contrib.admin
     'django.contrib.admin',
     'repo_scanner',
 ]
@@ -94,6 +96,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIGRATION_MODULES = {
     'sites': 'audio_server.contrib.sites.migrations'
 }
+
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------

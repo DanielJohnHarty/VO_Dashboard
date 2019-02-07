@@ -25,6 +25,7 @@ RUN pip install --no-cache-dir matplotlib==3.0.2
 RUN pip install pysoundfile==0.9.0.post1
 RUN pip install future==0.17.1
 RUN pip install django-recurrence==1.8.2
+RUN pip install django-filebrowser==3.11.1
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements

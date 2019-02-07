@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from recurrence.fields import RecurrenceField
+from django.conf import settings
 
 # Create your models here.
 class AudioAsset(models.Model):
@@ -14,3 +17,11 @@ class AudioAsset(models.Model):
 
     def __str__(self):
         return "{}_{}".format(self.filename, self.crc)
+
+class ScanTask(models.Model):
+    scan_root = models.CharField(max_length=300)
+    scan_slug = models.CharField(max_length=100)
+    scan_desc = models.CharField(max_length=500)
+    recurrence = RecurrenceField()
+    active = models.BooleanField(default=True)
+    created_by = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete='cascade')

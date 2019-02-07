@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+
+{% load crispy_forms_tags %}
 {% block content %}
+
 <h1>Scan Home</h1>
+
+<form action="{% url 'repo_scanner:scan' %}" method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" value="OK">
+</form>
+
 {% endblock %}

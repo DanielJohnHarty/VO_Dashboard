@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from . import tasks
 from . import models
-
+from .forms import ScanTaskForm
 
 def scan(request):
     template = 'repo_scanner/scan_home.html'
-    result = tasks.scan.delay()
-    return render(request, template)
+    # result = tasks.scan.delay()
+    form = ScanTaskForm()
+    context = {'form': form}
+    return render(request, template, context)
 
 
 def view_db(request):

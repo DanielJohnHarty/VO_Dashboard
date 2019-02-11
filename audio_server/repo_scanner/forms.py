@@ -1,11 +1,10 @@
-from django.forms import forms, ModelForm, FilePathField
+from django.forms import forms, ModelForm
 from .models import ScanTask
+from bootstrap_datepicker_plus import DatePickerInput
 
 class ScanTaskForm(ModelForm):
     class Meta:
         model = ScanTask
-        #fields = ['pub_date', 'headline', 'content', 'reporter']
-        fields = ('scan_root', 'scan_slug', 'scan_desc')
-        # widgets = {
-        #     'scan_root': FilePathField('/'),
-        # }
+        fields = ('scan_root', 'scan_slug', 'scan_desc', 'scan_datetime')
+        widgets = {'scan_datetime' : DatePickerInput(format='%Y-%m-%d %H:%M')}
+

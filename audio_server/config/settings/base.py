@@ -81,7 +81,9 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
-    'recurrence'
+    'recurrence',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
 ]
 LOCAL_APPS = [
     'audio_server.users.apps.UsersAppConfig',
@@ -97,6 +99,10 @@ MIGRATION_MODULES = {
     'sites': 'audio_server.contrib.sites.migrations'
 }
 
+# Bootstrap
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------

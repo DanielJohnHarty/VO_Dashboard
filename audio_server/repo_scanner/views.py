@@ -1,11 +1,10 @@
 from django.shortcuts import render
-from . import tasks
-from . import models
-from .forms import ScanTaskForm
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.utils.timezone import now
-
+from . import tasks
+from . import models
+from .forms import ScanTaskForm
 
 '''
 now() + datetime.timedelta(hours=1) #1 hour ahead  
@@ -19,13 +18,16 @@ def scan(request):
         form = ScanTaskForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            target_path = form.cleaned_data['scan_root']
+            # Save the ScanTask to the db
+            new_scantask = models.ScanTask(**form.cleaned_data, created_by=request.user)
+            new_scantask.save()
+            
+            # Create the celery scan task
+            scan_target_root = form.cleaned_data['scan_target_root']
             execution_datetime = form.cleaned_data['scan_datetime']
-            result = tasks.scan.apply_async(target_path=target_path, eta=execution_datetime)
+            result = tasks.scan.apply_async(target_path=scan_target_root, eta=execution_datetime)
 
-            #result = tasks.scan.delay(target_path=target_path)
-            # redirect to a new URL:
+            # redirect home:
             return HttpResponseRedirect(reverse('home'))
 
     # if a GET (or any other method) we'll create a blank form

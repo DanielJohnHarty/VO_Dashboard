@@ -3,10 +3,9 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 from recurrence.fields import RecurrenceField
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 import datetime
 
-fs = FileSystemStorage(location='/')
+
 def now_timestamp():
     return now().strftime("%Y-%m-%d %H:%M")
 
@@ -30,10 +29,11 @@ class AudioAsset(models.Model):
 
 class ScanTask(models.Model):
 
-    scan_root = models.CharField(max_length=300, default='/audio_repo')
+    scan_target_root = models.CharField(max_length=300, default='/audio_repo')
     scan_slug = models.CharField(max_length=100, default= str(now_timestamp()))
     scan_desc = models.CharField(max_length=500, default="Scan Started @ {}".format(now_timestamp()))
     scan_datetime = models.DateTimeField(default=default_scan_start_time)
-    recurrence = RecurrenceField()
-    active = models.BooleanField(default=True)
     created_by = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete='cascade')
+
+    def __str__(self):
+        return "{}|{}|{}".format(self.created_by, self.scan_slug, self.scan_target_root)

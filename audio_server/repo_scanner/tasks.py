@@ -15,7 +15,7 @@ def test_placeholder(num_iterations):
 
 
 @app.task
-def scan(target_path='/audio_repo'):
+def scan(target_path):
 
     for path, dirs, files in os.walk(target_path):
         for f in files:

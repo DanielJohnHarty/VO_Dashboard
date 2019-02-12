@@ -25,7 +25,7 @@ def scan(request):
             # Create the celery scan task
             scan_target_root = form.cleaned_data['scan_target_root']
             execution_datetime = form.cleaned_data['scan_datetime']
-            result = tasks.scan.apply_async(target_path=scan_target_root, eta=execution_datetime)
+            result = tasks.scan.apply_async([scan_target_root], eta=execution_datetime)
 
             # redirect home:
             return HttpResponseRedirect(reverse('home'))

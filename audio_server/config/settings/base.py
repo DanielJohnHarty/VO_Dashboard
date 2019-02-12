@@ -70,8 +70,6 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'django.contrib.humanize', # Handy template tags
-    'grappelli', # Must be before django.contrib.admin
-    'filebrowser', # Must be before django.contrib.admin
     'django.contrib.admin',
     'repo_scanner',
 ]
@@ -81,7 +79,6 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
-    'recurrence',
     'bootstrap_datepicker_plus',
     'bootstrap4',
 ]

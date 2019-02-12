@@ -32,7 +32,7 @@ class ScanTask(models.Model):
     scan_slug = models.CharField(max_length=100, default= str(now_timestamp()))
     scan_desc = models.CharField(max_length=500, default="Scan Started @ {}".format(now_timestamp()))
     scan_datetime = models.DateTimeField(default=default_scan_start_time)
-    created_by = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete='cascade')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete='cascade')
 
     def __str__(self):
         return "{}|{}|{}".format(self.created_by, self.scan_slug, self.scan_target_root)

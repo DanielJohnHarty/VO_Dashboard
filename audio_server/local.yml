@@ -15,13 +15,15 @@ services:
       - mailhog
     volumes:
       - .:/app
-      - /Users/danielharty/dev/test_audio/free-spoken-digit-dataset/recordings:/audio_repo
+      # - /Users/danielharty/dev/test_audio/free-spoken-digit-dataset/recordings:/audio_repo
+      - //c/dev/test_audio:/audio_repo
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
       - "8000:8000"
     command: /start
+
 
 
   postgres:

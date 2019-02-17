@@ -1,14 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.utils.timezone import now
 from . import tasks
 from . import models
 from .forms import ScanTaskForm
+import custom_libs.nas_mount_utils as nmu
 
-'''
-now() + datetime.timedelta(hours=1) #1 hour ahead  
-'''
 
 def scan(request):
 
@@ -23,12 +20,19 @@ def scan(request):
             new_scantask.save()
             
             # Create the celery scan task
-            scan_target_root = form.cleaned_data['scan_target_root']
-            execution_datetime = form.cleaned_data['scan_datetime']
-            result = tasks.scan.apply_async([scan_target_root], eta=execution_datetime)
+            passed_scan_target = form.cleaned_data['scan_target_root']
+            server_path = nmu.return_server_filepath_if_exists(passed_scan_target)
 
-            # redirect home:
-            return HttpResponseRedirect(reverse('home'))
+            if server_path:
+                execution_datetime = form.cleaned_data['scan_datetime']
+                result = tasks.scan.apply_async([server_path], eta=execution_datetime)
+
+                # redirect home if successful:
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                # Reload page if unsuccessful (must add error message dialog)
+                return HttpResponseRedirect(reverse('repo_scanner:scan'))
+
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -37,15 +41,6 @@ def scan(request):
         form = ScanTaskForm()
         context = {'form': form}
         return render(request, template, context)
-
-
-
-
-
-
-
-
-
 
 
 

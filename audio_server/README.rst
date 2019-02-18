@@ -121,30 +121,15 @@ See detailed `cookiecutter-django Docker documentation`_.
 ***
 FEATURES:
 
-auto convert global_VO nas to container repo address
-  win_pth = 'C:\\dev\\test_audio\\frFR\\HS\\03_12.0 (Boomsday)\\01_InGame\\01_RStoAV\\01_180523_Batch01\\'
-
-  j=PurePath(win_pth)
-  global_vo_nas_root = 'C:\\dev\\test_audio\\'
-  j.relative_to(global_vo_nas_root)
-  PureWindowsPath('frFR/HS/03_12.0 (Boomsday)/01_InGame/01_RStoAV/01_180523_Batch01')
-
 Scan page - recent scan params auto update (low prio, most browsers will do it)
 
 franchise/milestone reports
 
 using the web interface to perform script Vs audio analysis
 
-
-POWERBI CONNECTOR script
-
-import requests
-import json
-import pandas as pd
-
-r = requests.get('http://localhost:8000/api/audioassets')
-r_dict = json.loads(r.content)
-
-columns = r_dict['results'][0].keys()
-
-df = pd.DataFrame(r_dict['results'])
+create project:
+ name
+ server location
+ auto asset pipeline active
+   if yes, who should have access to onedrive
+ 

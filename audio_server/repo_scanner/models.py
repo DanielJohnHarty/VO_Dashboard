@@ -17,6 +17,12 @@ class AudioAsset(models.Model):
     filepath = models.CharField(max_length=300)
     scandate = models.DateTimeField(auto_now=True)
     filecreationdate = models.DateTimeField(blank=True, null=True)
+    bitrate = models.IntegerField(blank=True, null=True)
+    length = models.FloatField(blank=True, null=True)
+    samplerate = models.IntegerField(blank=True, null=True)
+    lufs = models.FloatField(blank=True, null=True)
+    channels = models.IntegerField(blank=True, null=True)
+    crc = models.CharField(blank=True, null=True, max_length=100)
 
     def __str__(self):
         return "{}_{}".format(self.filename, self.crc)

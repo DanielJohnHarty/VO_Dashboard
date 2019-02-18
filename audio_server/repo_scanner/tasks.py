@@ -39,7 +39,8 @@ def scan(target_path):
                                                     samplerate=metadata['samplerate'],
                                                     channels=metadata['channels'],
                                                     length=metadata['length'],
-                                                    lufs=metadata['lufs'])
+                                                    lufs=metadata['lufs'],
+                                                    filecreationdate=metadata['filecreationdate'])
                 else:
                     # new asset
                     models.AudioAsset.objects.create(filename=f,
@@ -49,4 +50,5 @@ def scan(target_path):
                                                      samplerate=metadata['samplerate'],
                                                      channels=metadata['channels'],
                                                      length=metadata['length'],
-                                                     lufs=metadata['lufs'])
+                                                     lufs=metadata['lufs'],
+                                                     filecreationdate=metadata['filecreationdate'])

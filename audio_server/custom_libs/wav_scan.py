@@ -1,6 +1,7 @@
 import wave
 import os
 import hashlib
+import datetime
 import pyloudnorm as pyln
 import soundfile as sf
 
@@ -31,6 +32,13 @@ def get_lufs_loudness(path_to_wav):
 
     return loudness
 
+def get_filecreationdate(path_to_wav):
+    filecreationdate = \
+        datetime.datetime.fromtimestamp(
+            os.path.getctime(path_to_wav)
+        )
+    return filecreationdate
+
 def get_wav_metadata(path_to_wav):
 
     is_valid_path = os.path.exists(path_to_wav)
@@ -53,6 +61,8 @@ def get_wav_metadata(path_to_wav):
             'samplerate' : wave_obj.getframerate(),
 
             'crc' : GetFileMD5Hash(path_to_wav),
+
+            'filecreationdate' : get_filecreationdate(path_to_wav),
 
             }
     

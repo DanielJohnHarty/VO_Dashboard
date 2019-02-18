@@ -15,18 +15,20 @@
     <th>CRC</th>
     <th>Channels</th> 
     <th>Length</th>
+    <th>File Creation Date</th>
   </tr>
     {% for asset in audio_db %}
     <tr>
             <td>{{asset.filename}}</td>
             <td>{{asset.filepath}}</td>
-            <td>{{asset.scandate}}</td>
+            <td>{{asset.scandate|date:'Y-m-d H:i'}}</td>
             <td>{{asset.bitrate}}</td>
             <td>{{asset.samplerate}}</td>
             <td>{{asset.lufs|floatformat:2}}</td>
             <td>{{asset.crc}}</td>
             <td>{{asset.channels}}</td>
             <td>{{asset.length|floatformat:2}}</td>
+            <td>{{asset.filecreationdate|date:'Y-m-d H:i'}}</td>
     </tr>
     {% endfor %}
 
